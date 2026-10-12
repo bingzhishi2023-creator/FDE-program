@@ -1,0 +1,4 @@
+id,title,department,active,text
+public-travel, 差旅制度有效版 ,all,1, 报销需提交发票与行程单。 
+finance-budget,财务内部预算,finance,1,教学预算仅允许财务查看。
+old-travel,差旅制度历史版,all,0,旧版只要求提交发票；已停用。

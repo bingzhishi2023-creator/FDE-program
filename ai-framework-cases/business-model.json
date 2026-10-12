@@ -1,0 +1,29 @@
+{
+  "types": {
+    "Employee": {"required": ["name", "role"]},
+    "Claim": {"required": ["amount", "status"], "statuses": ["材料审核中", "等待补充行程单", "已完成"]},
+    "Policy": {"required": ["title", "active"]}
+  },
+  "link_types": {
+    "submitted_by": {"from": "Claim", "to": "Employee"},
+    "governed_by": {"from": "Claim", "to": "Policy"},
+    "handled_by": {"from": "Claim", "to": "Employee"}
+  },
+  "objects": [
+    {"id": "E001", "type": "Employee", "name": "小林", "role": "employee"},
+    {"id": "E002", "type": "Employee", "name": "另一位员工", "role": "employee"},
+    {"id": "E003", "type": "Employee", "name": "周敏", "role": "finance"},
+    {"id": "P002", "type": "Policy", "title": "差旅制度 v2", "active": true},
+    {"id": "R-0001", "type": "Claim", "amount": "1280.00", "status": "材料审核中"},
+    {"id": "R-0002", "type": "Claim", "amount": "560.00", "status": "等待补充行程单"}
+  ],
+  "links": [
+    {"from": "R-0001", "type": "submitted_by", "to": "E001"},
+    {"from": "R-0002", "type": "submitted_by", "to": "E002"},
+    {"from": "R-0001", "type": "governed_by", "to": "P002"},
+    {"from": "R-0002", "type": "governed_by", "to": "P002"},
+    {"from": "R-0001", "type": "handled_by", "to": "E003"},
+    {"from": "R-0002", "type": "handled_by", "to": "E003"}
+  ],
+  "actions": {"request_materials": {"target_type": "Claim", "allowed_role": "finance", "from_status": "材料审核中", "to_status": "等待补充行程单", "mode": "dry-run-only"}}
+}
